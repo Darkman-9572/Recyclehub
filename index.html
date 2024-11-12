@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RecycleHub</title>
+  <style>
+    html{
+      scroll-behavior: smooth;
+      scrollbar-color: blue;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      background-color: #eaf6f6;
+    }
+
+    
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 120px;
+      background-color: #2d6a4f;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 30px;
+      z-index: 1000;
+      flex-wrap: wrap;
+    }
+    .navbar .title {
+      display: flex;
+      align-items: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+    }
+    .navbar .title img {
+      height: 100px;
+      width: 100px;
+      border-radius: 50%;
+      margin-right: 15px;
+      border: 2px solid #1b4332;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 10px 20px;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    .nav-links a:hover {
+      background-color: #1b4332;
+    }
+
+    
+    .search-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background-color: #fff;
+      border-radius: 20px;
+      padding: 5px 10px;
+    }
+    .search-container input {
+      border: none;
+      outline: none;
+      padding: 8px 40px 8px 15px;
+      border-radius: 20px;
+      width: 200px;
+    }
+    .search-container button {
+      position: absolute;
+      right: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: #2d6a4f;
+    }
+
+    
+    .suggestions {
+      position: absolute;
+      top: 40px;
+      left: 0;
+      width: 100%;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      z-index: 1001;
+    }
+    .suggestions a {
+      display: block;
+      padding: 10px;
+      color: #333;
+      text-decoration: none;
+    }
+    .suggestions a:hover {
+      background-color: #e0f2f1;
+    }
+
+    /* Responsive styling */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .nav-links.responsive.show {
+        display: flex;
+        gap: 10px;
+      }
+      .search-container {
+        width: 100%;
+        justify-content: center;
+      }
+      .search-container input {
+        width: 100%;
+      }
+    }
+    body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4fbf4; 
+            color: #333;
+        }
+        header {
+            background-color: #2d6a4f;
+            color: white;
+            padding: 0px;
+            text-align: center;
+            margin-top: 33px;
+        }
+        h1 {
+            font-size: 36px;
+        }
+        h2 {
+            font-size: 28px;
+            color: #3b82f6; 
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+        .img1 {
+            
+            width: 30%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+            float: left;
+            margin-left: 5%;
+          
+        }
+        .img2{
+          width: 30%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+         
+
+        }
+        .img3{
+          width: 30%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            /* margin-top: 500px; */
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #2d6a4f;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .main-container {
+            padding: 2rem;
+        }
+
+        
+        .recycle-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+
+        .recycle-item h2 {
+            font-size: 24px;
+            color: #2d6a4f; 
+            margin-bottom: 1rem;
+        }
+
+        .recycle-item p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+      
+        .text-content {
+            flex: 1;
+            padding: 0 1.5rem;
+            max-width: 50%;
+        }
+
+       
+        .recycle-item img {
+            width: 45%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        
+        .recycle-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        
+        @media (max-width: 768px) {
+            .recycle-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .text-content, .recycle-item img {
+                max-width: 100%;
+                padding: 0;
+            }
+        }
+        .container {
+            padding: 2rem;
+            max-width: 1900px;
+            margin: auto;
+        }
+
+        /* h1 {
+            text-align: center;
+            color: #2d6a4f;
+            font-size: 2.5rem;
+        } */
+
+        
+        .section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2d6a4f;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        
+        .blog-post {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-post h3 {
+            font-size: 1.5rem;
+            color: #1b4332;
+            margin: 0.5rem 0;
+        }
+
+        .blog-post p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        
+        .diy-project {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .diy-project img {
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+            margin-right: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .diy-project h3 {
+            font-size: 1.5rem;
+            color: #1b4332;
+            margin-top: 0;
+        }
+
+        .diy-project p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        
+        @media (max-width: 768px) {
+            .diy-project {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .diy-project img {
+                margin-bottom: 1rem;
+            }
+        }
+        #ttt{
+          text-align: center;
+          text-decoration: solid;
+        }
+        .faq-container {
+            max-width: 1000px;
+            width: 100%;
+            padding: 1rem;
+            background-color:#2d6a4f;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-left: 17%;
+            margin-top: 20px;
+        }
+
+        .faq-container h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #ddd;
+            padding: 1rem 0;
+        }
+
+        .faq-question {
+            background-color: blue;
+            color: wheat;
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            text-align: left;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: blue;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .faq-answer p {
+            padding: 1rem 0;
+            color: white;
+            font-size: 0.9rem;
+        }
+        /* fhfhfjhfecee */
+        .container__ {
+    background: #2d6a4f;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+    margin-left: 23%;
+    margin-bottom: 20px;
+}
+
+.contact-form h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color:white;
+}
+
+.contact-form label {
+    color:white;
+    margin-top: 1rem;
+    display: block;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    resize: none;
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    transition: background 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #adf1c8;
+}
+  </style>
+</head>
+<body>
+
+ 
+  <div class="navbar">
+    <div class="title">
+      <img src="Screenshot 2024-11-03 134946.png" alt="RecycleHub Logo"> RecycleHub
+    </div>
+    <div class="nav-links" id="nav-links">
+      <a href="#home">Home</a>
+      <a href="#resource__">Recycle Guide</a>
+      <!-- <a href="#local-resources">Local Resources</a> -->
+      <a href="#tips-education">Tips & Education</a>
+      <a href="#contact">Contact Us</a>
+    </div>
+    
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search..." oninput="showSuggestions()">
+      <button type="submit">🔍</button>
+     
+      <div class="suggestions" id="suggestions" style="display: none;"></div>
+    </div>
+  </div>
+
+  
+  <div class="content">
+    <h1>Welcome to RecycleHub</h1>
+    <p>Your go-to guide for recycling common household items responsibly.</p>
+  </div>
+<section id="home">
+  <header>
+    <h1>Welcome to RecycleHub</h1>
+    <p>Your comprehensive resource for recycling and sustainable living.</p>
+</header>
+
+<div class="container">
+    <h2>Why Recycling is Important</h2>
+    <p>Recycling is a crucial part of reducing waste and conserving the environment. By recycling materials like paper, glass, and plastics, we can significantly reduce the amount of waste sent to landfills. This not only conserves natural resources but also reduces pollution and energy consumption.</p>
+    <img class="img1" src="https://as2.ftcdn.net/v2/jpg/08/18/02/13/1000_F_818021384_LN9is53bTYia3QO1oLtYGStfRSiuHEOZ.jpg" alt="Recycling">
+    <img class="img2" src="https://as1.ftcdn.net/v2/jpg/06/17/32/48/1000_F_617324869_3fiGThhYazsfLJUXPY0NXDQRM04FZNzX.jpg" alt="recycle">
+    <img src="https://as1.ftcdn.net/v2/jpg/05/90/65/26/1000_F_590652631_XYduDmkbjJOyeeII2qzrUwHFtIU9ps89.jpg" alt="recycle" class="img3">
+    <p>When we recycle, we help to create a sustainable cycle where materials are reused instead of discarded. This means less energy is used in the production of new materials, and we reduce greenhouse gas emissions that contribute to climate change.</p>
+    
+    <h2>About Recycling</h2>
+    <p>Recycling involves the collection and processing of materials that would otherwise be thrown away as trash. These materials are then converted into new products, thereby extending their lifecycle and minimizing waste. The recycling process typically includes several steps: collection, sorting, cleaning, and reprocessing.</p>
+    <p>Through recycling, we not only protect our planet but also create economic opportunities. The recycling industry supports jobs and fosters innovation in sustainable practices. Each individual can make a difference by incorporating recycling into their daily routines, promoting a cleaner and greener future for all.</p>
+</div>
+
+</section>
+<div class="main-container" id="resource__">
+        
+  <!-- Item 1: Plastic Bottles -->
+  <div class="recycle-item" id="item1">
+      <div class="text-content">
+          <h2>How to Recycle Plastic Bottles</h2>
+          <p>Recycling plastic bottles reduces landfill waste. Follow these steps:</p>
+          <ol>
+            <li>Rinse the bottle thoroughly to remove any residue.</li>
+            <li>Remove any labels or caps, as these are often made of different materials.</li>
+            <li>Compress the bottle to save space in recycling bins.</li>
+            <li>Place it in the designated plastic recycling bin.</li>
+            <li>Collection and Sorting: Factories collect plastic bottles and sort them by type and color.</li>
+            <li> Cleaning and Shredding: Bottles are washed to remove contaminants and shredded into small plastic flakes.</li>
+            <li>Melting and Reshaping: The plastic flakes are melted and molded into pellets or new materials.</li>
+            <li>Manufacturing New Products: These recycled materials are used to create new products like clothing fibers, packaging, or new bottles.</li>
+          </ol>
+      </div>
+      <img src="https://media.gettyimages.com/id/98225783/photo/bottles-of-mineral-water.jpg?s=612x612&w=gi&k=20&c=sVSOelGkjfDxjRWMnzk0eoMWAHTdvUDcMgveCnjo-yg=" alt="Plastic Bottles Image">   
+  </div>
+
+  <!-- Item 2: Glass Bottles -->
+  <div class="recycle-item" id="item2">
+      <div class="text-content">
+          <h2>How to Recycle Glass Bottles</h2>
+          <p>Recycle glass bottles endlessly. Steps include:</p>
+          <ol>
+            <li>Rinse out the bottle to remove any liquid or residue.</li>
+            <li>Separate different colors of glass, if required by your local recycling facility.</li>
+            <li>Remove any metal caps or plastic labels.</li>
+            <li>Place the bottle in a designated glass recycling bin.</li>
+            <li>Collection and Sorting: Glass bottles are collected and sorted by color (clear, green, brown) at recycling facilities.</li>
+            <li>Cleaning and Crushing: The bottles are cleaned to remove labels and debris, then crushed into small pieces called cullet.</li>
+            <li>Melting Process: The cullet is melted in high-temperature furnaces to form molten glass.</li>
+            <li>Molding New Products: The molten glass is molded into new bottles or other glass items for reuse.</li>
+          </ol>
+      </div>
+      <img src="https://t3.ftcdn.net/jpg/01/96/17/80/360_F_196178060_6dIfOObRA4xt6inVcyUzNx9YvEDu4JW0.jpg" alt="Glass Bottles Image">
+  </div>
+
+  <!-- Item 3: Paper -->
+  <div class="recycle-item" id="item3">
+      <div class="text-content">
+          <h2>How to Recycle Paper</h2>
+          <p>Recycling paper saves trees. Follow these steps:</p>
+          <ol>
+            <li>Remove any non-paper items like plastic windows or tape.</li>
+            <li>Flatten cardboard boxes to save space in recycling bins.</li>
+            <li>Sort the paper types if required by your recycling center.</li>
+            <li>Place the paper in the designated paper recycling bin.</li>
+            <li>Collection and Sorting: Paper is collected from recycling bins and sorted by type and grade.</li>
+            <li>Pulping and Cleaning: The paper is mixed with water and chemicals to break it down into pulp and cleaned to remove impurities like staples and glue.</li>
+            <li>De-inking and Refining: The pulp is de-inked and refined to remove ink and enhance the paper fibers.</li>
+            <li>Pressing and Drying: The refined pulp is pressed and dried to form new sheets of paper, which are then rolled and cut for reuse</li>
+          </ol>
+      </div>
+      <img src="https://m.media-amazon.com/images/I/61wiMgk3uVL.jpg" alt="Paper Image">
+  </div>
+
+  <!-- Item 4: Batteries -->
+  <div class="recycle-item" id="item4">
+      <div class="text-content">
+          <h2>How to Recycle Batteries</h2>
+          <p>Proper battery disposal prevents pollution. Here's how:</p>
+          <ol>
+            <li>Check if your local recycling center accepts batteries.</li>
+          <li>Do not mix different battery types in one container.</li>
+          <li>Place batteries in designated battery recycling bins.</li>
+          <li>Collection and Sorting: Batteries are collected and sorted by type (e.g., lithium-ion, lead-acid, nickel-cadmium) for appropriate processing.</li>
+          <li>Disassembly and Crushing: Batteries are disassembled or crushed to separate components such as metals, chemicals, and plastic casings.</li>
+          <li>Material Recovery: Metals like lithium, cobalt, and lead are extracted through chemical processes or heat treatment for reuse.
+          </li>
+          <li>Safe Disposal and Reuse: Hazardous materials are safely disposed of, while recovered metals and other components are refined and repurposed for new batteries or other products.</li>
+          </ol>
+      </div>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Batteries.jpg/250px-Batteries.jpg" alt="Batteries Image">
+  </div>
+
+  <!-- Item 5: Aluminum Cans -->
+  <div class="recycle-item" id="item5">
+      <div class="text-content">
+          <h2>How to Recycle Aluminum Cans</h2>
+          <p>Recycling aluminum saves resources. Steps include:</p>
+          <ol>
+            <li>Rinse the can to remove any residue or liquids.</li>
+            <li>Remove any plastic tops or caps.</li>
+            <li>Flatten the can to save space in recycling bins.</li>
+            <li>Place the can in the designated aluminum recycling bin.</li>
+            <li>Collection and Sorting: Aluminum cans are collected and sorted to remove contaminants and non-aluminum materials.</li>
+            <li>Shredding and Cleaning: The cans are shredded into small pieces and cleaned to remove any paint or coatings</li>
+            <li>Melting: The shredded aluminum is melted in high-temperature furnaces to create molten aluminum.</li>
+            <li>Forming New Products: The molten aluminum is cast into ingots or rolled into sheets to manufacture new cans or other aluminum products.</li> 
+          </ol>
+      </div>
+      <img src="https://media.licdn.com/dms/image/D4D12AQGfcSTm5PTptQ/article-cover_image-shrink_720_1280/0/1661862672004?e=2147483647&v=beta&t=UGW7tWtVyHgPmKsoBr0ltTkynu9lGJA5gPaNpalfzII" alt="Aluminum Cans Image">
+  </div>
+
+  <!-- Item 6: Cardboard -->
+  <div class="recycle-item" id="item6">
+      <div class="text-content">
+          <h2>How to Recycle Cardboard</h2>
+          <p>Cardboard recycling reduces waste. Follow these steps:</p>
+          <ol>
+            <li>Flatten the cardboard to reduce space.</li>
+            <li>Remove any plastic or metal materials attached to the cardboard.</li>
+            <li>Place the cardboard in the designated recycling bin.</li>
+            <li>Collection and Sorting: Cardboard is collected and sorted by type and quality at recycling facilities.</li>
+            <li>Shredding and Pulping: The cardboard is shredded and mixed with water to break it down into a pulp</li>
+            <li>Filtering and Decontaminating: The pulp is filtered to remove contaminants like tape, staples, and glue.</li>
+            <li>Pressing and Drying: The clean pulp is pressed and dried to form new cardboard sheets, which are then cut and prepared for reuse.</li> 
+          </ol>
+      </div>
+      <img src="https://images-cdn.ubuy.co.in/6429123ec61cdb566f1604a3-mt-products-sturdy-kraft-corrugated.jpg" alt="Cardboard Image">
+  </div>
+
+  <!-- Item 7: Plastic Bags -->
+  <div class="recycle-item" id="item7">
+      <div class="text-content">
+          <h2>How to Recycle Plastic Bags</h2>
+          <p>Plastic bags can often be recycled at stores:</p>
+          <ol>
+            <li>Gather all plastic bags.</li>
+            <li>Check if your local grocery store has a plastic bag recycling drop-off.</li>
+            <li>Place bags in the designated drop-off bin.</li>
+            <li>Collection and Sorting: Plastic bags are collected and sorted to remove contaminants and ensure only recyclable types are processed.</li>
+            <li>Shredding and Washing: The bags are shredded into small pieces and washed to remove impurities like dirt and ink</li>
+            <li>Melting and Pelleting: The clean plastic shreds are melted and processed into small pellets known as nurdles.</li>
+            <li>Re-manufacturing: These pellets are used to create new plastic products, such as bags, containers, or construction materials.</li> 
+          </ol>
+      </div>
+      <img src="https://5.imimg.com/data5/SELLER/Default/2024/9/447894322/LU/AK/DA/37345802/blue-plastic-carry-bag-500x500.jpg" alt="Plastic Bags Image">
+  </div>
+
+  <!-- Item 8: Textiles -->
+  <div class="recycle-item" id="item8">
+      <div class="text-content">
+          <h2>How to Recycle Textiles</h2>
+          <p>Textile recycling reduces landfill waste:</p>
+          <ol>
+            <li>Check if your clothes are still in good condition for donation.</li>
+            <li>Take worn-out clothes to a textile recycling center.</li>
+            <li>Ensure textiles are clean and free of non-textile materials.</li>
+            <li>Collection and Sorting: Factories collect textiles and sort them by fabric type, color, and condition</li>
+            <li>Shredding and Fiber Separation: Textiles are shredded into fibers, with buttons, zippers, and non-fabric elements removed.</li>
+            <li>Cleaning and Reprocessing: The fibers are cleaned and processed, often blended with new fibers to enhance quality.</li>
+            <li>Spinning and Reweaving: The processed fibers are spun into yarn and woven or knitted into new fabrics and products.</li>
+          </ol>
+      </div>
+      <img src="https://img.freepik.com/free-photo/textile-fabrics-market_157027-4493.jpg" alt="Textiles Image">
+  </div>
+
+  <!-- Item 9: E-Waste -->
+  <div class="recycle-item" id="item9">
+      <div class="text-content">
+          <h2>How to Recycle E-Waste</h2>
+          <p>E-waste recycling protects the environment:</p>
+          <ol>
+            <li>Take your old electronics to a certified e-waste recycling facility.</li>
+            <li>Remove any batteries before recycling.</li>
+            <li>Ensure devices are wiped clean of personal data before recycling.</li>
+            <li>Collection and Sorting: E-waste is collected and sorted to separate different types of electronic devices and components.</li>
+            <li>Disassembly and Shredding: Devices are manually disassembled or mechanically shredded to separate metals, plastics, and circuit boards</li>
+            <li>Material Recovery: Precious metals like gold, silver, copper, and other valuable components are extracted through chemical or heat-based processes.</li>
+            <li>Recycling and Disposal: Recovered materials are refined and reused for manufacturing new electronic products, while non-recyclable waste is safely disposed of.</li> 
+          </ol>
+      </div>
+      <img src="https://arogyalegal.com/wp-content/uploads/2024/02/ewaste-clipart-upscaled-scaled.jpg" alt="E-Waste Image">
+  </div>
+
+  <!-- Item 10: Plastic Containers -->
+  <div class="recycle-item" id="item10">
+      <div class="text-content">
+          <h2>How to Recycle Plastic Containers</h2>
+          <p>Recycle plastic containers effectively by:</p>
+          <ol>
+            <li>Rinse out the container to remove food residues.</li>
+            <li>Check for recycling codes to ensure they are recyclable in your area.</li>
+            <li>Place them in the appropriate recycling bin.</li>
+            <li>Collection and Sorting: Plastic containers are collected and sorted by type and resin code to ensure proper recycling.</li>
+            <li>Cleaning and Shredding: The containers are washed to remove labels and contaminants, then shredded into small plastic flakes.</li>
+            <li>Melting and Reforming: The flakes are melted and molded into pellets or new plastic materials.</li>
+            <li>Manufacturing New Products: The recycled pellets are used to create new items like containers, packaging, and pl
+          </ol>
+      </div>
+      <img src="https://cdn.thewirecutter.com/wp-content/media/2021/04/food-storage-container-2048px-1344.jpg?auto=webp&quality=75&width=1024" alt="Plastic Containers Image">
+  </div>
+
+  <!-- Item 11: Newspapers -->
+  <div class="recycle-item" id="item11">
+      <div class="text-content">
+          <h2>How to Recycle Newspapers</h2>
+          <p>Save trees by recycling old newspapers:</p>
+          <ol>
+            <li>Stack old newspapers neatly.</li>
+            <li>Remove any non-paper items like advertisements or plastic sleeves.</li>
+            <li>Place them in your paper recycling bin.</li>
+            <li>Collection and Sorting: Old newspapers are collected and sorted to remove non-paper contaminants.</li>
+            <li>Pulping and Water Mixing: The newspapers are mixed with water and broken down into a pulp</li>
+            <li>De-inking and Filtering: The pulp is de-inked and filtered to remove inks, adhesives, and other impurities.</li>
+            <li>Pressing and Drying: The clean pulp is pressed and dried into new sheets of paper, ready for reuse in products like newsprint or packaging</li> 
+          </ol>
+      </div>
+      <img src="https://c8.alamy.com/comp/CP57JM/stack-of-two-newspaper-bundles-for-recycling-against-white-CP57JM.jpg" alt="Newspapers Image">
+  </div>
+
+  <!-- Item 12: Used Tires -->
+  <div class="recycle-item" id="item12">
+      <div class="text-content">
+          <h2>How to Recycle Used Tires</h2>
+          <p>Tire recycling prevents waste and pollution:</p>
+          <ol>
+            <li>Take used tires to a local tire recycling facility.</li>
+            <li>Ensure tires are free of metal and other contaminants.</li>
+            <li>They will be shredded or repurposed for other uses like playgrounds or roads.</li>
+            <li>Collection and Inspection: Used tires are collected and inspected for any reusable parts or potential repurposing</li>
+            <li>Shredding and Grinding: Tires are shredded into smaller pieces or ground into crumb rubber.</li>
+            <li>Separation of Components: Steel and fabric are separated from the rubber through mechanical or magnetic processes.</li>
+            <li>Repurposing and Reuse: The processed rubber is used to create products like rubberized asphalt, playground surfaces, flooring, and new tire products.</li
+          </ol>
+      </div>
+      <img src="https://media.istockphoto.com/id/1454512529/photo/car-tires-pile-at-the-garage-old-car-tires-wheel-on-shelves-shelf-at-wheel-store-workshop.jpg?s=612x612&w=0&k=20&c=agzoMXdifgoLg1XTCgAm5ckDzoC5e3Ln9ky1kzruNwM=" alt="Used Tires Image">
+  </div>
+
+  <!-- Item 13: Paint Cans -->
+  <div class="recycle-item" id="item13">
+      <div class="text-content">
+          <h2>How to Recycle Paint Cans</h2>
+          <p>Proper paint disposal keeps toxins out:</p>
+          <ol>
+            <li>Empty out any leftover paint.</li>
+            <li>Remove any labels or excess materials from the cans.</li>
+            <li>Check if your local recycling center accepts paint cans.</li>
+            <li>Collection and Sorting: Used paint cans are collected and sorted based on material type (metal or plastic) and leftover paint content.</li>
+            <li>Paint Removal and Cleaning: Any residual paint is removed, and the cans are cleaned to prepare them for recycling.</li>
+            <li>Shredding and Crushing: Metal cans are crushed and shredded, while plastic cans are processed similarly for material recovery.</li>
+            <li>Material Reuse: Recovered metal is melted and repurposed for new metal products, while plastic is reprocessed into new plastic items.</li>
+        </ol> 
+          </ol>
+      </div>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRATGxS2nno-0r6Bzs_vpofg11xbAPbdSdfA&s" alt="Paint Cans Image">
+  </div>
+
+  <!-- Item 14: Old Furniture -->
+  <div class="recycle-item" id="item14">
+      <div class="text-content">
+          <h2>How to Recycle Old Furniture</h2>
+          <p>Furniture recycling reduces landfill waste:</p>
+          <ol>
+              <li>Collection and Sorting: Old furniture is collected from various sources and sorted by material type (wood, metal, fabric, etc.).</li>
+              <li>Disassembly: Furniture is disassembled to separate different components, such as wood, fabric, foam, and metal parts</li>
+              <li>Material Cleaning: The separated materials are cleaned and prepared by removing nails, screws, adhesives, and other contaminants.</li>
+              <li>Shredding and Processing: Wood is chipped or shredded, metal parts are melted down, and fabric is processed for reuse or recyclin</li>
+              <li>Material Recovery: Recovered wood may be turned into particleboard, metal is repurposed for new products, and fabric can be reused or turned into fiber filling.</li>
+              <li>Manufacturing New Products: The recycled materials are used to create new furniture, construction materials, or other items.</li>
+          </ol>
+      </div>
+      <img src="https://www.relaxhouse.com.au/blog/wp-content/uploads/2023/12/TELEMMGLPICT000179595798_trans_NvBQzQNjv4Bqjj7NJ3YiIjAb1WHq3sE3uhKttfbwsG9PqG0T37pchKo-1024x640.jpeg" alt="Old Furniture Image">
+  </div>
+
+</div>
+<div class="container" id="tips-education">
+  <h1 id="ttt">Tips & Education</h1>
+
+  <!-- Blog Posts Section -->
+  <div class="section" id="blog-posts">
+      <h2>Blog Posts</h2>
+
+      <div class="blog-post">
+          <h3>The Importance of Recycling</h3>
+          <p>Discover the benefits of recycling for our planet, economy, and communities. From conserving resources to reducing pollution, recycling has a powerful impact on sustainability.</p>
+      </div>
+
+      <div class="blog-post">
+          <h3>How to Reduce Plastic Waste</h3>
+          <p>Plastic waste is a major environmental issue. Learn simple tips on how to reduce plastic consumption in your daily life, from reusable bags to sustainable alternatives.</p>
+      </div>
+
+      <div class="blog-post">
+          <h3>10 Things You Didn’t Know You Could Recycle</h3>
+          <p>Many items you might not think of can actually be recycled! From electronics to clothing, find out how to recycle these unexpected items and where to take them.</p>
+      </div>
+  </div>
+
+  <!-- DIY Projects Section -->
+  <div class="section" id="diy-projects">
+      <h2>DIY Projects</h2>
+
+      <div class="diy-project">
+         <a href="https://www.thekitchn.com/upcyle-glass-jars-kitchen-review-23076735"> <img src="https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fit,w_730,h_444/k%2FEdit%2F2020-09-Upcycling-Jars%2FUpcycledJars4" alt="Glass Jars DIY"></a>
+          <div>
+              <a href="https://www.thekitchn.com/upcyle-glass-jars-kitchen-review-23076735"><h3>Upcycle Glass Jars into Storage Containers</h3></a>
+              <p>Transform your empty glass jars into useful storage containers. Perfect for organizing your pantry, bathroom, or workspace. Follow these simple steps to upcycle!</p>
+          </div>
+      </div>
+
+      <div class="diy-project">
+          <a href="https://www.instructables.com/craft/cardboard/projects/"><img src="https://content.instructables.com/FTI/UNR9/LVI42XJP/FTIUNR9LVI42XJP.jpg?auto=webp&frame=1&width=609&fit=bounds&md=MjAyNC0wNC0yNyAwNzowMTo0NC4w" alt="Cardboard Crafts"> </a>
+          <div>
+              <a href="https://www.instructables.com/craft/cardboard/projects/"><h3>Create Crafts from Cardboard</h3></a>
+              <p>Turn cardboard boxes into fun crafts! This DIY project is great for kids and adults alike. From coasters to organizers, cardboard has endless possibilities.</p>
+          </div>
+      </div>
+
+      <div class="diy-project">
+         <a href="https://www.instructables.com/Plastic-Bottle-Planters/"> <img src="https://content.instructables.com/F7L/6JFQ/GSRO60IC/F7L6JFQGSRO60IC.jpg?auto=webp&frame=1&fit=bounds&md=MjAxNC0wNi0xMyAxOToxNzowNy4w" alt="Plastic Bottles Planters"></a>
+          <div>
+              <a href="https://www.instructables.com/Plastic-Bottle-Planters/"><h3>Make Planters from Plastic Bottles</h3></a>
+              <p>Give your plastic bottles a second life by turning them into cute, eco-friendly planters. A fun way to add greenery to your home while reducing plastic waste!</p>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="faq-container">
+  <h1>Recycling FAQs</h1>
+
+  <div class="faq-item">
+      <button class="faq-question">What materials can be recycled?</button>
+      <div class="faq-answer">
+          <p>Common recyclable materials include paper, cardboard, glass, metal, and certain plastics. Check with your local recycling center for specifics, as some items require special handling.</p>
+      </div>
+  </div>
+
+  <div class="faq-item">
+      <button class="faq-question">How should I prepare items for recycling?</button>
+      <div class="faq-answer">
+          <p>Remove any food residue and rinse containers to avoid contamination. Flatten cardboard boxes and keep recyclables loose, not in bags.</p>
+      </div>
+  </div>
+
+  <div class="faq-item">
+      <button class="faq-question">Why is recycling important?</button>
+      <div class="faq-answer">
+          <p>Recycling helps conserve resources, reduce pollution, and decrease landfill waste, creating a more sustainable environment for future generations.</p>
+      </div>
+  </div>
+
+  <div class="faq-item">
+      <button class="faq-question">Can all types of plastics be recycled?</button>
+      <div class="faq-answer">
+          <p>No, not all plastics are recyclable. Most recycling programs accept plastics labeled #1 and #2, while other types may require special handling or cannot be recycled.</p>
+      </div>
+  </div>
+
+  <div class="faq-item">
+      <button class="faq-question">What happens to recyclables after collection?</button>
+      <div class="faq-answer">
+          <p>After collection, recyclables are sorted, cleaned, and processed into materials that can be used to make new products, reducing the need for raw materials.</p>
+      </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll(".faq-question").forEach(button => {
+      button.addEventListener("click", () => {
+          const answer = button.nextElementSibling;
+
+          button.classList.toggle("active");
+
+          if (button.classList.contains("active")) {
+              answer.style.maxHeight = answer.scrollHeight + "px";
+          } else {
+              answer.style.maxHeight = "0";
+          }
+      });
+  });
+</script>
+<div class="container__" id="contact">
+  <form class="contact-form">
+      <h2>Contact Us</h2>
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Your Email" required>
+
+      <label for="phone">Phone No.</label>
+      <input type="phone" id="phone" name="phone" placeholder="Your Phone Number" required>
+
+
+      <label for="subject">Subject</label>
+      <input type="text" id="subject" name="subject" placeholder="Subject" required>
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+
+      <button type="submit">Send Message</button>
+  </form>
+</div>
+<footer>
+  <p>&copy; 2024 RecycleHub. All rights reserved.</p>
+</footer>
+
+  <script>
+    
+const items = [
+  { name: "Plastic Bottles", link: "#item1" },
+  { name: "Paper", link: "#item3" },
+  { name: "Glass Jars", link: "#item2" },
+  { name: "Metal Cans", link: "#item5" },
+  { name: "E-Wastes", link: "#item9" },
+  { name: "Batteries", link: "#item4" },
+  { name: "Newspaper", link: "#item11" },
+  { name: "Cardboard", link: "#item6" },
+  { name: "Plastic containers", link: "#item10" },
+  { name: "Textiles", link: "#item8" },
+  { name: "Tires", link: "#item12" },
+  { name: "Paint cans", link: "#item13" },
+  { name: "Plastics bags", link: "#item7" },
+  { name: "Old Furniture", link: "#item14" },
+];
+
+
+    function showSuggestions() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const suggestionsContainer = document.getElementById("suggestions");
+      suggestionsContainer.innerHTML = ""; 
+
+      if (input) {
+        const filteredItems = items.filter(item => item.name.toLowerCase().includes(input));
+        
+        filteredItems.forEach(item => {
+          const suggestion = document.createElement("a");
+          suggestion.href = item.link;
+          suggestion.textContent = item.name;
+          suggestionsContainer.appendChild(suggestion);
+        });
+
+        suggestionsContainer.style.display = filteredItems.length > 0 ? "block" : "none";
+      } else {
+        suggestionsContainer.style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+</html>
+
